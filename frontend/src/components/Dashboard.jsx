@@ -19,7 +19,7 @@ function Dashboard() {
 
   const fetchComplaints = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/complaints');
+      const res = await axios.get('/api/complaints');
       setComplaints(res.data);
     } catch (err) {
       console.error(err);
@@ -32,7 +32,7 @@ function Dashboard() {
       return;
     }
     try {
-      const res = await axios.get(`http://localhost:5000/api/complaints/search?location=${searchLocation}`);
+      const res = await axios.get(`/api/complaints/search?location=${searchLocation}`);
       setComplaints(res.data);
     } catch (err) {
       console.error(err);
@@ -42,7 +42,7 @@ function Dashboard() {
   const handleStatusUpdate = async (id, newStatus) => {
     const token = localStorage.getItem('token');
     try {
-      await axios.put(`http://localhost:5000/api/complaints/${id}`, { status: newStatus }, {
+      await axios.put(`/api/complaints/${id}`, { status: newStatus }, {
         headers: { Authorization: `Bearer ${token}` }
       });
       fetchComplaints();
@@ -54,7 +54,7 @@ function Dashboard() {
   const handleDelete = async (id) => {
     const token = localStorage.getItem('token');
     try {
-      await axios.delete(`http://localhost:5000/api/complaints/${id}`, {
+      await axios.delete(`/api/complaints/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       fetchComplaints();

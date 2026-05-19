@@ -29,7 +29,7 @@ function AddComplaint() {
     setLoading(true);
     setError('');
     try {
-      const res = await axios.post('http://localhost:5000/api/ai/analyze', {
+      const res = await axios.post('/api/ai/analyze', {
         title: formData.title,
         description: formData.description
       });
@@ -44,7 +44,7 @@ function AddComplaint() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/api/complaints', formData);
+      await axios.post('/api/complaints', formData);
       setSuccess('Complaint stored successfully!');
       setTimeout(() => {
         navigate('/');
