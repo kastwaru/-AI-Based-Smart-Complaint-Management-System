@@ -32,7 +32,7 @@ router.post('/analyze', async (req, res) => {
         const response = await axios.post(
           "https://openrouter.ai/api/v1/chat/completions",
           {
-            model: "google/gemini-2.0-flash-exp:free", // Using a free model to avoid 402 Payment Required errors
+            model: "meta-llama/llama-3.3-70b-instruct:free", 
             messages: [{ role: "user", content: prompt }]
           },
           {
