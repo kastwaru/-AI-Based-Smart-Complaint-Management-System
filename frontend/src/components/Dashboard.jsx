@@ -19,7 +19,8 @@ function Dashboard() {
 
   const fetchComplaints = async () => {
     try {
-      const res = await axios.get('/api/complaints');
+      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      const res = await axios.get(`${API_URL}/api/complaints`);
       setComplaints(res.data);
     } catch (err) {
       console.error(err);
@@ -32,7 +33,8 @@ function Dashboard() {
       return;
     }
     try {
-      const res = await axios.get(`/api/complaints/search?location=${searchLocation}`);
+      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      const res = await axios.get(`${API_URL}/api/complaints/search?location=${searchLocation}`);
       setComplaints(res.data);
     } catch (err) {
       console.error(err);
@@ -42,7 +44,8 @@ function Dashboard() {
   const handleStatusUpdate = async (id, newStatus) => {
     const token = localStorage.getItem('token');
     try {
-      await axios.put(`/api/complaints/${id}`, { status: newStatus }, {
+      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      await axios.put(`${API_URL}/api/complaints/${id}`, { status: newStatus }, {
         headers: { Authorization: `Bearer ${token}` }
       });
       fetchComplaints();
@@ -54,7 +57,8 @@ function Dashboard() {
   const handleDelete = async (id) => {
     const token = localStorage.getItem('token');
     try {
-      await axios.delete(`/api/complaints/${id}`, {
+      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      await axios.delete(`${API_URL}/api/complaints/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       fetchComplaints();

@@ -29,7 +29,8 @@ function AddComplaint() {
     setLoading(true);
     setError('');
     try {
-      const res = await axios.post('/api/ai/analyze', {
+      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      const res = await axios.post(`${API_URL}/api/ai/analyze`, {
         title: formData.title,
         description: formData.description
       });
@@ -44,7 +45,8 @@ function AddComplaint() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('/api/complaints', formData);
+      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      await axios.post(`${API_URL}/api/complaints`, formData);
       setSuccess('Complaint stored successfully!');
       setTimeout(() => {
         navigate('/');

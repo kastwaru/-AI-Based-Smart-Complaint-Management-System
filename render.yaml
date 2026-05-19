@@ -1,12 +1,10 @@
 services:
   - type: web
-    name: ai-smart-complaint-app
+    name: ai-complaint-backend
     env: node
-    buildCommand: "cd frontend && npm install && npm run build && cd ../backend && npm install"
+    buildCommand: "cd backend && npm install"
     startCommand: "cd backend && node index.js"
     envVars:
-      - key: NODE_ENV
-        value: production
       - key: PORT
         value: 5000
       - key: MONGO_URI
@@ -15,3 +13,15 @@ services:
         sync: false
       - key: JWT_SECRET
         generateValue: true
+
+  - type: web
+    name: ai-complaint-frontend
+    env: static
+    buildCommand: "cd frontend && npm install && npm run build"
+    staticPublishPath: frontend/dist
+    envVars:
+      - key: VITE_API_URL
+        fromService:
+          type: web
+          name: ai-complaint-backend
+          envVarKey: RENDER_EXTERNAL_URL
